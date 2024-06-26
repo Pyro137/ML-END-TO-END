@@ -3,7 +3,7 @@ from mlProject.utils.common import read_yaml, create_directories
 from mlProject.entity.config_entity import (DataIngestionConfig,
                                             DataValidationConfig,
                                             DataTransformationConfig,
-                                            ModelTrainerConfig,ModelEvaluationConfig)
+                                            ModelTrainerConfig)
 
 
 class ConfigurationManager:
@@ -57,45 +57,22 @@ class ConfigurationManager:
         return data_transformation_config
     
 
-    def get_model_trainer_config(self)->ModelTrainerConfig:
-        config=self.config.model_trainer
-        schema=self.schema.TARGET_COLUMN
-        params=self.params.ElasticNet
-
-        create_directories([config.root_dir])
-
-        model_trainer_obj=ModelTrainerConfig(
-            root_dir=config.root_dir,
-            test_path=config.test_path,
-            train_path=config.train_path,
-            model_name=config.model_name,
-            alpha=params.alpha,
-            l1_ratio=params.l1_ratio,
-            target_column=schema.name
-        )
-        return model_trainer_obj
-    
-
-    def get_model_evaluation_config(self) -> ModelEvaluationConfig:
-        config = self.config.model_evaluation
+    def get_model_trainer_config(self) -> ModelTrainerConfig:
+        config = self.config.model_trainer
         params = self.params.ElasticNet
-        schema = self.schema.TARGET_COLUMN
+        schema =  self.schema.TARGET_COLUMN
+
         create_directories([config.root_dir])
 
-        all_params = {
-            'alpha': params.alpha,  # Alpha değerini all_params içine ekliyoruz.
-            'l1_ratio': params.l1_ratio  # l1_ratio değerini all_params içine ekliyoruz.
-        }
-
-        evaluation_obj = ModelEvaluationConfig(
+        model_trainer_config = ModelTrainerConfig(
             root_dir=config.root_dir,
-            test_path=config.test_path,
-            elasticpath=config.elasticmodel,
-            ridgepath=config.ridgemodel,
-            lassopath=config.lassomodel,
-            target_column=schema.name,
-            metric_file_name=config.metric_file_name,
-            all_params=params.alpha
+            train_path = config.train_path,
+            test_path= config.test_path,
+            model_name = config.model_name,
+            alpha = params.alpha,
+            l1_ratio = params.l1_ratio,
+            target_column = schema.name
+            
         )
 
-        return evaluation_obj
+        return model_trainer_config

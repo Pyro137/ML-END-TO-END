@@ -25,19 +25,9 @@ class DataTransformationConfig:
 class ModelTrainerConfig:
     root_dir: Path
     train_path: Path
-    test_path:Path
+    test_path: Path
     model_name: str
     alpha: float
-    l1_ratio:float
-    target_column:str
-
-@dataclass(frozen=True)
-class ModelEvaluationConfig:
-    root_dir: Path
-    test_path: Path
-    elasticpath: Path
-    ridgepath: Path
-    lassopath: Path
+    l1_ratio: float
     target_column: str
-    metric_file_name: Path
     
