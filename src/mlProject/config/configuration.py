@@ -3,7 +3,7 @@ from mlProject.utils.common import read_yaml, create_directories
 from mlProject.entity.config_entity import (DataIngestionConfig,
                                             DataValidationConfig,
                                             DataTransformationConfig,
-                                            ModelTrainerConfig,)
+                                            ModelTrainerConfig,ModelEvaluationConfig)
 
 
 class ConfigurationManager:
@@ -75,3 +75,27 @@ class ConfigurationManager:
         )
         return model_trainer_obj
     
+
+    def get_model_evaluation_config(self) -> ModelEvaluationConfig:
+        config = self.config.model_evaluation
+        params = self.params.ElasticNet
+        schema = self.schema.TARGET_COLUMN
+        create_directories([config.root_dir])
+
+        all_params = {
+            'alpha': params.alpha,  # Alpha değerini all_params içine ekliyoruz.
+            'l1_ratio': params.l1_ratio  # l1_ratio değerini all_params içine ekliyoruz.
+        }
+
+        evaluation_obj = ModelEvaluationConfig(
+            root_dir=config.root_dir,
+            test_path=config.test_path,
+            elasticpath=config.elasticmodel,
+            ridgepath=config.ridgemodel,
+            lassopath=config.lassomodel,
+            target_column=schema.name,
+            metric_file_name=config.metric_file_name,
+            all_params=params.alpha
+        )
+
+        return evaluation_obj

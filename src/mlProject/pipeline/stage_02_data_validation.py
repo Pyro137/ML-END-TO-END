@@ -1,6 +1,6 @@
 from src.mlProject.config.configuration import ConfigurationManager
 from src.mlProject.components.data_validation import Datavalidation
-from src.mlProject.logging import logging
+
 
 
 
@@ -16,12 +16,3 @@ class DataValidationPipeline:
 
 
 
-
-if __name__=="__main__":
-    try:
-        data_validation_pipeline=DataValidationPipeline()
-        data_validation_pipeline.main()
-
-    except Exception as e:
-        raise e            
-        
