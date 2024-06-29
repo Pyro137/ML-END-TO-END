@@ -17,7 +17,7 @@ class DataTransformationPipeline:
                 config=ConfigurationManager()
                 data_transformation_config=config.get_data_transformation_config()
                 data_transformation=DataTransformation(data_transformation_config)
-                data_transformation.train_test_split()
+                data_transformation.train_test_spliting()
             else:
                 raise Exception("Data transformation occured error")
 
